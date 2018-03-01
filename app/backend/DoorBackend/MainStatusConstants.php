@@ -4,6 +4,6 @@ namespace App\Backend;
 
 class MainStatusConstants
 {
-    const ALLOWED = 'ALLOWED';
-    const IN_MANTENIENCE = 'IN_MANTENIENCE';
+    const ALLOWED = 'allowed';
+    const IN_MANTENIENCE = 'in_mantenience';
 }

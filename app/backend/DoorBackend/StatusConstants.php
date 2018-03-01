@@ -4,8 +4,8 @@ namespace App\Backend;
 
 class StatusConstants
 {
-    const OPEN = 'OPEN';
-    const CLOSE = 'CLOSE';
+    const OPEN = 'open';
+    const CLOSE = 'closed';
 
     public static $valid = array(self::OPEN, self::CLOSE);
 

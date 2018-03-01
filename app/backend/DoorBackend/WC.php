@@ -41,6 +41,9 @@ class WC
         return $this->id;
     }
 
+    public function toArray() {
+        return array('status' => $this->status, 'id' => $this->id);
 
+    }
 
 }

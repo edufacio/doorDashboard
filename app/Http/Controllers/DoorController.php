@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 require_once __DIR__ . '/../../backend/DoorBackend/RoomBackend.php';
+require_once __DIR__ . '/../../backend/DoorBackend/TypeConstants.php';
+require_once __DIR__ . '/../../backend/DoorBackend/StatusConstants.php';
 
 
 use App\Backend\RoomBackend;
@@ -41,9 +43,9 @@ class DoorController extends Controller
 
         if (empty($errors)) {
             $backend = new RoomBackend();
-            return response()->json($backend->update());
+            return response()->json($backend->update($roomId, $type, $id, $status));
         } else {
-            return response()->json($errors);
+            return response()->json(json_encode($errors));
         }
     }
 }

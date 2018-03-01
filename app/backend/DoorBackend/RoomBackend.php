@@ -1,7 +1,12 @@
 <?php
 
-
 namespace App\Backend;
+
+require_once __DIR__ . '/Room.php';
+require_once __DIR__ . '/RoomList.php';
+require_once __DIR__ . '/WC.php';
+require_once __DIR__ . '/MainStatusConstants.php';
+require_once __DIR__ . '/StatusConstants.php';
 
 use App\Door;
 use App\Models;
@@ -14,32 +19,30 @@ class RoomBackend
     public function get()
     {
         $doors = Door::all();
+        $list = new RoomList();
         /**
          * @var Door[] $doors
          */
-        $rooms = array();
         foreach ($doors as $door) {
-            $roomId = $door->getRoom();
-
-            if (!isset($rooms[$roomId])) {
-                $rooms[$roomId] = new Room();
-                $rooms[$roomId]->setRoom($roomId);
-            }
+            $room = $list->getRoom($door->getRoom());
             $type = $door->getType();
             if ($type == TypeConstants::MAIN) {
-                $rooms[$roomId]->setStatus($this->getStatusForMain($door));
+                $room->setStatus($this->getStatusForMain($door));
             } else {
                 $wc = new WC();
                 $wc->setId($door->getId());
                 $wc->setStatus($door->getStatus());
-                $rooms[$roomId]->addWc($wc);
+                $room->addWc($wc);
             }
+
+            $list->setRoom($room);
         }
-        return $rooms;
+
+        return $list->toArray();
     }
 
-
-    public function update($room, $type, $id, $status) {
+    public function update($room, $type, $id, $status)
+    {
         $door = Door::where('room', '=', $room)
             ->where('type', 'type', $type)
             ->where('type', 'id', $id)
@@ -52,7 +55,7 @@ class RoomBackend
         }
         $door->setTime(time());
         $door->setStatus($status);
-        $door->save();
+        $door->update();
         return $door;
     }
 

@@ -19,6 +19,7 @@ class CreateDoorDashboard extends Migration
             $table->string('id');
             $table->string('status');
             $table->integer('time');
+            $table->timestamps();
             $table->primary(['room', 'type', 'id']);
         });
 
@@ -31,6 +32,6 @@ class CreateDoorDashboard extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('door');
+        Schema::dropIfExists('doors');
     }
 }
