@@ -37,7 +37,6 @@ class RoomBackend
 
             $list->setRoom($room);
         }
-var_dump($list);
         return $list->toArray();
     }
 
