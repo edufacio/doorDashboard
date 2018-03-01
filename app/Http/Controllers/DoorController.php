@@ -34,7 +34,7 @@ class DoorController extends Controller
 
         $status = $request->input('status');
         if ($status === null || !StatusConstants::isValid($status)) {
-        $errors[] = 'mandatory param status error valid values: ' . TypeConstants::getValidValues();
+        $errors[] = 'mandatory param status error valid values: ' . StatusConstants::getValidValues();
     }
         $id = $request->input('id');
         if ($id === null) {
