@@ -54,7 +54,6 @@ class Room
      */
     public function setStatus($status)
     {
-        var_dump("puto");
         $this->status = $status;
     }
 
