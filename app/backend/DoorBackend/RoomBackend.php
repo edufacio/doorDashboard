@@ -43,9 +43,9 @@ class RoomBackend
 
     public function update($room, $type, $id, $status)
     {
-        $door = Door::where('room', '=', $room)
-            ->where('type', 'type', $type)
-            ->where('type', 'id', $id)
+        $door = Door::where('room', $room)
+            ->where('type', $type)
+            ->where('id', $id)
             ->first();
         if ($door === null) {
             $door = new Door();
@@ -55,7 +55,7 @@ class RoomBackend
         }
         $door->setTime(time());
         $door->setStatus($status);
-        $door->update();
+        $door->save();
         return $door;
     }
 
