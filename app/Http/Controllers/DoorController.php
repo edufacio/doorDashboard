@@ -17,10 +17,12 @@ class DoorController extends Controller
     {
         $backend = new RoomBackend();
         $response = response();
-        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
-        $response->header('Access-Control-Allow-Headers',  'accept, content-type, x-xsrf-token, x-csrf-token');
-        $response->header('Access-Control-Allow-Origin', '*');
-        return $response->json($backend->get());
+
+        return $response->json($backend->get(), 200, array(
+            'Access-Control-Allow-Methods' => 'HEAD, GET, POST, PUT, PATCH, DELETE',
+            'Access-Control-Allow-Headers' => 'accept, content-type, x-xsrf-token, x-csrf-token',
+            'Access-Control-Allow-Origin' => '*',
+        ));
     }
 
     public function log(Request $request)
@@ -45,9 +47,6 @@ class DoorController extends Controller
         }
 
         $response = response();
-        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
-        $response->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'));
-        $response->header('Access-Control-Allow-Origin', '*');
         if (empty($errors)) {
             $backend = new RoomBackend();
             return $response->json($backend->update($roomId, $type, $id, $status));
