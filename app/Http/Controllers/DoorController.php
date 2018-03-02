@@ -16,7 +16,11 @@ class DoorController extends Controller
     public function getStatus()
     {
         $backend = new RoomBackend();
-        return response()->json($backend->get());
+        $response = response();
+        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+        $response->header('Access-Control-Allow-Headers',  'accept, content-type, x-xsrf-token, x-csrf-token');
+        $response->header('Access-Control-Allow-Origin', '*');
+        return $response->json($backend->get());
     }
 
     public function log(Request $request)
