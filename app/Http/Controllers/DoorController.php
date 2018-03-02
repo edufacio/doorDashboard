@@ -5,7 +5,6 @@ require_once __DIR__ . '/../../backend/DoorBackend/RoomBackend.php';
 require_once __DIR__ . '/../../backend/DoorBackend/TypeConstants.php';
 require_once __DIR__ . '/../../backend/DoorBackend/StatusConstants.php';
 
-
 use App\Backend\RoomBackend;
 use App\Backend\StatusConstants;
 use App\Backend\TypeConstants;
@@ -34,18 +33,22 @@ class DoorController extends Controller
 
         $status = $request->input('status');
         if ($status === null || !StatusConstants::isValid($status)) {
-        $errors[] = 'mandatory param status error valid values: ' . StatusConstants::getValidValues();
-    }
+            $errors[] = 'mandatory param status error valid values: ' . StatusConstants::getValidValues();
+        }
         $id = $request->input('id');
         if ($id === null) {
             $errors[] = 'mandatory param id error';
         }
 
+        $response = response();
+        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+        $response->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'));
+        $response->header('Access-Control-Allow-Origin', '*');
         if (empty($errors)) {
             $backend = new RoomBackend();
-            return response()->json($backend->update($roomId, $type, $id, $status));
+            return $response->json($backend->update($roomId, $type, $id, $status));
         } else {
-            return response()->json(json_encode($errors));
+            return $response->json(json_encode($errors));
         }
     }
 }
