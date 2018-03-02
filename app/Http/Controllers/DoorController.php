@@ -22,6 +22,7 @@ class DoorController extends Controller
             'Access-Control-Allow-Methods' => 'HEAD, GET, POST, PUT, PATCH, DELETE',
             'Access-Control-Allow-Headers' => 'accept, content-type, x-xsrf-token, x-csrf-token',
             'Access-Control-Allow-Origin' => '*',
+            'Cache-Control' => 'no-cache',
         ));
     }
 
