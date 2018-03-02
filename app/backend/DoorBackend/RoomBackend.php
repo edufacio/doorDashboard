@@ -64,6 +64,6 @@ class RoomBackend
      */
     private function getStatusForMain($door)
     {
-        return $door->getStatus() == StatusConstants::OPEN && $door->getTime() > time() - env('TIME_TO_MOP') ? MainStatusConstants::IN_MANTENIENCE : MainStatusConstants::ALLOWED;
+        return $door->getStatus() == StatusConstants::OPEN && $door->getTime() < time() - env('TIME_TO_MOP') ? MainStatusConstants::IN_MANTENIENCE : MainStatusConstants::ALLOWED;
     }
 }
